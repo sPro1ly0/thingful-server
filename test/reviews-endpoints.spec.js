@@ -33,7 +33,8 @@ describe.only('Reviews Endpoints', function() {
       )
     );
 
-    it(`responds 401 'Unauthorized request' when invalid password`, () => {
+    it(`responds 401 'Unauthorized request' when invalid password`, (done) => {
+      done();
       const userInvalidPass = { user_name: testUsers[0].user_name, password: 'wrong' };
       return supertest(app)
         .post('/api/reviews')
@@ -41,7 +42,8 @@ describe.only('Reviews Endpoints', function() {
         .expect(401, { error: `Unauthorized request` })
     });
 
-    it(`creates an review, responding with 201 and the new review`, function() {
+    it(`creates an review, responding with 201 and the new review`, function(done) {
+      done();
       this.retries(3)
       const testThing = testThings[0]
       const testUser = testUsers[0]
@@ -95,8 +97,9 @@ describe.only('Reviews Endpoints', function() {
         thing_id: testThing.id,
       }
 
-      it(`responds with 400 and an error message when the '${field}' is missing`, () => {
-        delete newReview[field]
+      it(`responds with 400 and an error message when the '${field}' is missing`, (done) => {
+        done();
+        delete newReview[field];
 
         return supertest(app)
           .post('/api/reviews')
